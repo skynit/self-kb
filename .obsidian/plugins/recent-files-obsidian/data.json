@@ -1,0 +1,208 @@
+{
+  "recentFiles": [
+    {
+      "basename": "Intel-BE213-5GHz监管域BIOS-WRDD修复",
+      "path": "30-系统工程/02-Linux内核与驱动/Intel-BE213-5GHz监管域BIOS-WRDD修复.md"
+    },
+    {
+      "basename": "Ubuntu内核补丁",
+      "path": "30-系统工程/02-Linux内核与驱动/Ubuntu内核补丁.md"
+    },
+    {
+      "basename": "Intel-BE213-WiFi7-驱动安装与测试手册",
+      "path": "30-系统工程/02-Linux内核与驱动/Intel-BE213-WiFi7-驱动安装与测试手册.md"
+    },
+    {
+      "basename": "iwlwifi-驱动编译安装",
+      "path": "30-系统工程/02-Linux内核与驱动/iwlwifi-驱动编译安装.md"
+    },
+    {
+      "basename": "00-索引",
+      "path": "30-系统工程/00-索引.md"
+    },
+    {
+      "basename": "Git版本控制",
+      "path": "20-软件开发/06-版本控制/90-历史会话汇总/Git版本控制.md"
+    },
+    {
+      "basename": "Creating Your Own Linux Distribution",
+      "path": "90-原始资料/01-视频与网页剪藏/Linux发行版/Creating Your Own Linux Distribution.md"
+    },
+    {
+      "basename": "How to create a Debian respin using Live-Build",
+      "path": "90-原始资料/01-视频与网页剪藏/Linux发行版/How to create a Debian respin using Live-Build.md"
+    },
+    {
+      "basename": "README",
+      "path": "80-日记/README.md"
+    },
+    {
+      "basename": "fileserver",
+      "path": "80-日记/fileserver.md"
+    },
+    {
+      "basename": "00-索引",
+      "path": "70-项目/00-索引.md"
+    },
+    {
+      "basename": "大语言模型实践：语言理解与生成",
+      "path": "90-原始资料/ai/大语言模型实践：语言理解与生成.pdf"
+    },
+    {
+      "basename": "安装器ISO构建与兼容性验证",
+      "path": "70-项目/01-CWNAS/安装器ISO构建与兼容性验证.md"
+    },
+    {
+      "basename": "FTP",
+      "path": "70-项目/01-CWNAS/01-设计文档/FTP.md"
+    },
+    {
+      "basename": "企业级定制化NAS操作系统设计与构建白皮书",
+      "path": "70-项目/01-CWNAS/01-设计文档/企业级定制化NAS操作系统设计与构建白皮书.md"
+    },
+    {
+      "basename": "未命名",
+      "path": "90-原始资料/01-视频与网页剪藏/前端开发/未命名.md"
+    },
+    {
+      "basename": "创建自定义 Linux 发行版",
+      "path": "30-系统工程/09-自定义Linux发行版/custom-distro/创建自定义 Linux 发行版.md"
+    },
+    {
+      "basename": "01-Git命令速查手册",
+      "path": "20-软件开发/06-版本控制/01-Git命令速查手册.md"
+    },
+    {
+      "basename": "tpl_命令笔记",
+      "path": "00-知识库/02-模板/系统工程/tpl_命令笔记.md"
+    },
+    {
+      "basename": "tpl_理论概念",
+      "path": "00-知识库/02-模板/系统工程/tpl_理论概念.md"
+    },
+    {
+      "basename": "OS理论MOC",
+      "path": "10-计算机科学/01-操作系统/00-索引/OS理论MOC.md"
+    },
+    {
+      "basename": "TOOLS",
+      "path": "90-原始资料/03-外部仓库/LDD-LinuxDeviceDrivers/study/kernel/00-DESCRIPTION/TOOLS.md"
+    },
+    {
+      "basename": "知识库分类规范",
+      "path": "00-知识库/01-规范/知识库分类规范.md"
+    },
+    {
+      "basename": "README",
+      "path": "01-收件箱/README.md"
+    },
+    {
+      "basename": "通用知识与工具",
+      "path": "00-知识库/04-跨领域笔记/通用知识与工具.md"
+    },
+    {
+      "basename": "OpenCode历史会话知识点索引",
+      "path": "00-知识库/03-来源索引/OpenCode历史会话知识点索引.md"
+    },
+    {
+      "basename": "使用 Live-Build 创建 Debian Respin",
+      "path": "30-系统工程/09-自定义Linux发行版/debian-respin/使用 Live-Build 创建 Debian Respin.md"
+    },
+    {
+      "basename": "The Google File System 论文知识笔记",
+      "path": "10-计算机科学/02-分布式系统/01-论文笔记/The Google File System 论文知识笔记.md"
+    },
+    {
+      "basename": "进程与线程",
+      "path": "10-计算机科学/01-操作系统/01-理论/进程管理/进程与线程.md"
+    },
+    {
+      "basename": "操作系统学习路径MOC",
+      "path": "10-计算机科学/01-操作系统/00-索引/操作系统学习路径MOC.md"
+    },
+    {
+      "basename": "内存分配策略",
+      "path": "10-计算机科学/01-操作系统/01-理论/内存管理/内存分配策略.md"
+    },
+    {
+      "basename": "虚拟内存",
+      "path": "10-计算机科学/01-操作系统/01-理论/内存管理/虚拟内存.md"
+    },
+    {
+      "basename": "进程同步与互斥",
+      "path": "10-计算机科学/01-操作系统/01-理论/进程管理/进程同步与互斥.md"
+    },
+    {
+      "basename": "进程间通信",
+      "path": "10-计算机科学/01-操作系统/01-理论/进程管理/进程间通信.md"
+    },
+    {
+      "basename": "前端开发",
+      "path": "20-软件开发/01-前端开发/90-历史会话汇总/前端开发.md"
+    },
+    {
+      "basename": "原OS知识库目录规范",
+      "path": "10-计算机科学/01-操作系统/00-索引/原OS知识库目录规范.md"
+    },
+    {
+      "basename": "How Linux Boots",
+      "path": "90-原始资料/01-视频与网页剪藏/Linux系统/How Linux Boots.md"
+    },
+    {
+      "basename": "Linux最简单的内核模块-视频转录",
+      "path": "90-原始资料/01-视频与网页剪藏/Linux内核/Linux最简单的内核模块-视频转录.md"
+    },
+    {
+      "basename": "Linux WiFi Stack and Wireless Drivers-完整转录",
+      "path": "90-原始资料/01-视频与网页剪藏/Linux内核/Linux WiFi Stack and Wireless Drivers-完整转录.md"
+    },
+    {
+      "basename": "部署与排错",
+      "path": "70-项目/02-sub2api/部署与排错.md"
+    },
+    {
+      "basename": "网络与无线技术",
+      "path": "30-系统工程/04-网络与无线/90-历史会话汇总/网络与无线技术.md"
+    },
+    {
+      "basename": "Linux实操MOC",
+      "path": "30-系统工程/01-Linux系统管理/00-索引/Linux实操MOC.md"
+    },
+    {
+      "basename": "00-索引",
+      "path": "90-原始资料/00-索引.md"
+    },
+    {
+      "basename": "README",
+      "path": "99-归档/README.md"
+    },
+    {
+      "basename": "00-索引",
+      "path": "10-计算机科学/02-分布式系统/00-索引.md"
+    },
+    {
+      "basename": "进程调度算法",
+      "path": "10-计算机科学/01-操作系统/01-理论/进程管理/进程调度算法.md"
+    },
+    {
+      "basename": "中断与异常",
+      "path": "10-计算机科学/01-操作系统/01-理论/基础概念/中断与异常.md"
+    },
+    {
+      "basename": "系统调用与用户态内核态",
+      "path": "10-计算机科学/01-操作系统/01-理论/基础概念/系统调用与用户态内核态.md"
+    },
+    {
+      "basename": "操作系统概述",
+      "path": "10-计算机科学/01-操作系统/01-理论/基础概念/操作系统概述.md"
+    },
+    {
+      "basename": "Go语言",
+      "path": "20-软件开发/02-Go语言/90-历史会话汇总/Go语言.md"
+    }
+  ],
+  "omittedPaths": [],
+  "omittedTags": [],
+  "updateOn": "file-open",
+  "omitBookmarks": false
+}

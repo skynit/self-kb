@@ -1,0 +1,248 @@
+# 1 ANDROID
+-------
+
+[Android Kernel Features](https://elinux.org/Android_Kernel_Features)
+
+[各 Android 手机厂商 Bootloader 解锁 / 内核开源 / 解锁后保修情况](https://github.com/gatieme/MobileModels/blob/master/misc/bootloader-kernel-source.md)
+
+[移动芯片性能排行榜-天梯图](https://www.socpk.com)
+
+[LIST OF ALL MANUFACTURERS OF CHIPSETS FOR SMARTPHONES](https://phonesdata.com/en/chipset)
+
+| 公司 | github | MAIN |
+|:---:|:------:|:----:|
+| GOOGLE | [googlesource](https://android.googlesource.com/kernel/common) | NA |
+| ARM | NA |旧地址 [linux-arm.org](http://www.linux-arm.org/git?p=linux-vs), 切换到 gitlab 服务 [gitlab.arm.com](https://gitlab.arm.com/linux-arm/linux-vs) |
+| LINARO | [Linaro](https://github.com/Linaro), [lkft-Linux Kernel Functional Testing](https://lkft.linaro.org) | [patchwork](https://patches.linaro.org), [cgit](https://git.linaro.org/people), [GitLab, Linaro](https://gitlab.com/Linaro/lkft/users/vincent.guittot/linux) |
+| QCOM | [source.codeaurora](https://source.codeaurora.org/quic/la/kernel), [codelinaro](https://git.codelinaro.org/clo/la/kernel) | Code Aurora 是 Linux 基金会的一个协作项目, 为 QCOM 等 SoC 提供和维护 Linux 内核和 Android 等.<br>自 2022 年 4 月 1 日起, 高通创新中心公司已将其开源版本移至 [CodeLinaro](https://www.codeaurora.org)  |
+| HUAWEI | [consumer-opensource](https://consumer.huawei.com/en/opensource/detail/?siteCode=worldwide&productCode=Smartphones&fileType=openSourceSoftware&pageSize=10&curPage=1) | [opensource](https://consumer.huawei.com/en/opensource) |
+| OnePlus | [OnePlus Open Source Software](https://github.com/OnePlusOSS) | [oneplus](https://www.oneplus.com/cn)
+| HONOR | [HONOR-OpenSource](https://www.hihonor.com/global/opensource/detail.html) | [hihonor](https://www.hihonor.com/global/opensource) |
+| XiaoMi | [Xiaomi_Kernel_OpenSource](https://github.com/MiCode/Xiaomi_Kernel_OpenSource), [mitwo-dev](https://github.com/mitwo-dev)| [micode](https://www.micode.net) |
+| RealMe | [realme-kernel-opensource](https://github.com/realme-kernel-opensource) | NA |
+| 魅族 | [meizuosc](https://github.com/meizuosc), [lvchaqiu](https://github.com/lvchaqiu)|  [魅族内核团队](https://kernel.meizu.com) |
+| 三星 | [opensource.samsung.com](https://opensource.samsung.com/uploadSearch?searchValue=kernel) | [BogList](https://opensource.samsung.com/community/blogList) |
+| OPPO | [oppo-source](https://github.com/oppo-source) | NA |
+| VIVO | [VIVO OpenSource](https://opensource.vivo.com/Project) | NA |
+| CyanogenMod | [CyanogenMod](https://github.com/CyanogenMod) | [cyanogenmodroms](https://cyanogenmodroms.com/) |
+| LineageOS-CyanogenMod 的重生 | [lineageos](https://github.com/LineageOS) | [lineageos](https://www.lineageos.org/) |
+
+# 2 CLOUD & SERVER & Car
+-------
+
+| 公司 | github | MAIN |
+|:---:|:------:|:----:|
+| 华为| [openeuler](https://gitee.com/openeuler/kernel) | [openeuler](https://openeuler.org/zh) |
+| 阿里巴巴 | [alikernel](https://github.com/alibaba/alikernel) | [阿里云智能基础软件部-技术博客](https://kernel.taobao.org), [Alibaba Cloud Linux 2 DOC](https://help.aliyun.com/document_detail/154950.html?spm=a2c4g.11186623.3.3.37157594hOc6qA) |
+| 腾讯 | [TencentOS-kernel](https://github.com/Tencent/TencentOS-kernel) | [腾讯开源 |
+| AMAZON | [AmazonLinux](https://github.com/amazonlinux/linux) ||
+| ORACLE | [linux-uek](https://github.com/oracle/linux-uek) | [linux-kernel-development](https://blogs.oracle.com/linux/linux-kernel-development), [2](https://blogs.oracle.com/linux/category/lnx-linux-kernel-development) |
+| openSuse | [openSUSE/kernel](https://github.com/openSUSE/kernel)<br>*-*-*-*-*-*-*-* <br>[openSUSE/kernel](https://github.com/openSUSE/kernel-source) | [opensuse.org](https://en.opensuse.org/openSUSE:Kernel_git) |
+| microsoft | [微软的 linux 内部版本 CBL-Mariner](https://github.com/microsoft/CBL-Mariner-Linux-Kernel)<br>*-*-*-*-*-*-*-* <br>[WSL2-Linux-Kernel](https://github.com/microsoft/WSL2-Linux-Kernel)<br>*-*-*-*-*-*-*-* <br>[azure-linux-kernel](https://github.com/microsoft/azure-linux-kernel) | NA |
+| teslamotors | [teslamotors/linux](https://github.com/teslamotors/linux) | NA |
+
+
+# 3 发行版
+-------
+
+| 发行版 | open source | build |
+|:-----:|:----------:|:-------:|
+| MANJARO | | [packages/core/linux](https://gitlab.manjaro.org/packages/core?filter=linux) |
+
+
+# 4 野的不能再野的野分支
+-------
+
+[Linux 内核为什么没有第三方的版本或分支？](https://www.zhihu.com/question/36367269/answer/144200260)
+
+在 Linux 发展过程中, 存在诸多场景以及诸多特性和优化无法合入主线, 其中一些特性在特定场景往往表现极为出色, 当然也存在一些开发者出于兴趣, 自行进行了维护, 因此 Linux 衍生出了诸多(野)分支.
+
+## 4.1 那些没有进主线的演进特性
+-------
+
+| 分支 | 描述 | 内核 |
+|:---:|:---:|:----:|
+| [linux-rt(RTLinux)](https://rt.wiki.kernel.org/index.php/Main_Page) | 提供 realtime 支持 | NA |
+| [ck](https://users.tpg.com.au/ckolivas/kernel) | [CK(Con_Kolivas)](https://en.wikipedia.org/wiki/Con_Kolivas) 大佬的分支, BFS 以及后来 MuQSS 的作者, 该内核强调改进 linux desktop/laptop 的体验. |
+| [zen](https://zen-kernel.org) | 使用一些尚未包含在主线内核的代码, 试图支持最新的硬件, 提供最新的特性、安全补丁和性能优化. 参见 [wiki.ubuntu](https://wiki.ubuntu.com/ZenKernel). | [github.com, zen-kernel](https://github.com/zen-kernel/zen-kernel)
+| [grsecurity](https://grsecurity.net) | 基于 grsecurity/PaX 的 patch, 强调安全的 linux 内核 | NA |
+| [liquorix](https://liquorix.net) | 基于 linux-zen 内核源码和倾向于 Debian 的设置, 致力于改进桌面、多媒体和游戏体验. | NA |
+| [LinuxCNC](https://www.linuxcnc.org) | 针对数控机器人的系统<br>它可以驱动铣床、车床、3D 打印机、激光切割机、等离子切割机、机器人手臂、六足动物等. | [github.com, linuxcnc](https://github.com/LinuxCNC/linuxcnc) |
+| [Machinekit](https://www.machinekit.io) | Machinekit 用于支持各种硬件平台和实时环境, 并以低成本提供卓越的性能. 它基于 HAL 组件架构, 这是一个直观且易于使用的电路模型, 包括 150 多个用于数字逻辑、运动、控制环路、信号处理和硬件驱动程序的构建基块. Machinekit 支持本地和联网的 UI 选项, 包括无处不在的平台, 如手机或平板电脑. | [github, Machinekit](https://github.com/machinekit/machinekit) |
+| [xanmod](https://xanmod.org) | 旨在提供稳定、响应迅速、流畅的桌面体验. | [github, xanmod/linux](https://github.com/xanmod/linux) |
+| [mptcp(MultiPath TCP)](https://www.multipath-tcp.org) | 支持多路径 TCP 的 Linux 内核和模块. | NA |
+| [pf](https://pf.natalenko.name) | 名字取自作者 post-factum, 提供一些未加入主线内核的特性集. | NA |
+| [linux-vfio](https://github.com/awilliam/linux-vfio) | 出自 Alex Williamson 之手, 启用在某些计算机上使用 KVM 进行 PCI 直通的功能. | [github.com, awilliam/linux-vfio](https://github.com/awilliam/linux-vfio) |
+
+
+
+## 4.2 微内核
+-------
+
+
+| 内核 | 描述 | 网站 |
+|:---:|:---:|:----:|
+| [L4Linux](https://www.l4linux.org) | L4Linux 是[基于 Fiasco 微内核的跟普通 Linux 二进制完全兼容的 Linux 内核](https://blog.csdn.net/gracioushe/article/details/6023340). L4Linux 是运行 Fiasco 用户空间的一个进程, 由很多线程组成, 而 Native Linux 则是运行在内核空间, 如果不考虑 kernel thread 的话, 那么 Native Linux 就相当于一个运行在内核空间的大进程, 它实现了从处理器调度、内存管理到设备管理等所有一个操作系统的必备的功能. 参见 [Adam 的 diploma thesis](https://os.inf.tu-dresden.de/papers_ps/adam-diplom.pdf) | NA |
+| [darwin-xnu](https://github.com/apple/darwin-xnu) | 苹果的微内核 | [opensource](https://opensource.apple.com/source/xnu), [cbowser/xnu](https://fergofrog.com/code/cbowser/xnu) |
+| HongMeng kernel (HM) | HUAWEI 自研的 HM 微内核 | 由一个最小核心内核和一组最低特权操作系统服务组成, 它可以运行 AOSP 和 OpenHarmony 等复杂框架. HM 已在新兴场景(包括智能路由器、智能汽车和智能手机)的数千万台设备上部署在生产中, 通常比 Linux 同类产品具有更高的性能和安全性. 参见 OSDI-2024 的论文 [Microkernel Goes General: Performance and Compatibility in the HongMeng Production Microkernel](https://www.usenix.org/conference/osdi24/presentation/chen-haibo). |
+| [BlueOS](https://blueos.vivo.com/kernel) | [vivo自研蓝河操作系统内核开源！Rust开发新机遇来了](https://qbitai.com/2025/07/312268.html) | vivo 自研蓝河操作系统内核, 是适用于嵌入式和移动设备的开源 Rust 内核, 它完全由 Rust 语言编写, 从根本上解决了传统 C 语言在内存安全、维护成本上的长期难点. 而且更加轻量化对硬件资源要求低; 兼顾通用性, 支持 ARM、RISC-V 架构. | [蓝河内核官方网站](https://blueos.vivo.com/kernel)<br>[GitHub/vivoblueos](https://github.com/vivoblueos/kernel) |
+
+
+
+# 5 Linux Version
+-------
+
+[LWN 上各版本归档](https://lwn.net/Kernel/Index)
+
+|  tag  |  LWN  | 泰晓资讯 | phoronix |
+|:-----:|:-----:|:-------:|:--------:|
+| [5.14](https://lwn.net/Articles/867540) | [2021/07/12 rc1](https://lwn.net/Articles/861695)<br>*-*-*-*-*-*-*-* <br>[2021/07/12 5.14 conclusion](https://lwn.net/Articles/861695) | [8月 / 第一期 / 2021](https://tinylab.org/tinylab-weekly-8-1st-2021)<br>*-*-*-*-*-*-*-* <br>[8月 / 第二期 / 2021](https://tinylab.org/tinylab-weekly-8-2nd-2021/)<br>*-*-*-*-*-*-*-* <br>[2021 年 9 月 第 一 期](https://tinylab.org/tinylab-weekly-9-1st-2021) |
+| [5.15](https://lwn.net/Articles/874283) | [2021/09/02 5.15 Merge window, part 1](https://lwn.net/Articles/867821)<br>*-*-*-*-*-*-*-* <br>[2021/09/13 The rest of the 5.15 merge window](https://lwn.net/Articles/868221) | [9月 / 第二期 / 2021](https://tinylab.org/tinylab-weekly-9-2nd-2021) | [Linux 5.15 Delivers Many Features](https://www.phoronix.com/scan.php?page=article&item=linux-515-features&num=1) |
+| [5.16](https://lwn.net/Articles/874283) | [2021/11/04 5.16 Merge window, part 1](https://lwn.net/Articles/875135)<br>*-*-*-*-*-*-*-* <br>[2021/11/15 5.16 Merge window, part 2](https://lwn.net/Articles/868221) | [2021/07/12 rc1](https://lwn.net/Articles/875135) | [9月 / 第二期 / 2021](https://tinylab.org/tinylab-weekly-9-2nd-2021) | [Linux 5.16-rc1 ](https://www.phoronix.com/scan.php?page=article&item=linux-516-features&num=1) |
+| [5.17](https://lwn.net/Articles/887559) | [The first half of the 5.17 merge window](https://lwn.net/Articles/880909)<br>*-*-*-*-*-*-*-* <br>[The rest of the 5.17 merge window](https://lwn.net/Articles/881597) | [3 月 / 第一期 / 2022](https://tinylab.org/tinylab-weekly-3-1st-2022)<br>*-*-*-*-*-*-*-* <br>[3 月 / 第三期 / 2022](https://tinylab.org/tinylab-weekly-3-3rd-2022) | NA |
+| 5.18 | NA | NA | NA |
+| 5.19 | NA | NA | NA |
+|  6.0 | NA | NA | [Linux 6.0 Supporting New Intel/AMD Hardware, Performance Improvements & Much More](https://www.phoronix.com/review/linux-60-features), [6.0-rc1](https://www.phoronix.com/news/Linux-6.0-rc1-Released) |
+|  6.1 | NA | NA | [Linux 6.1 Features Include Initial Rust Code, MGLRU, New AMD CPU Features, More Security](https://www.phoronix.com/review/linux-61-features), [The Most Interesting New Features For Linux 6.1](https://www.phoronix.com/news/Linux-6.1-Features) |
+|  6.2 | NA | NA | [The Many New Features On The Horizon For Linux 6.2](https://www.phoronix.com/news/Linux-6.2-Early-Features)<br>*-*-*-*-*-*-*-* <br>[Linux 6.2-rc1 Brings Stable Intel Arc Graphics, Call Depth Tracking & Many More Features](https://www.phoronix.com/news/Linux-6.2-rc1-Released)<br>*-*-*-*-*-*-*-* <br>[Linux 6.2 Features: Stable Intel Arc Graphics. RTX 30 Support, Intel On Demand + IFS Ready](https://www.phoronix.com/review/linux-62-features) |
+| 6.3 | NA | NA | [Linux 6.3 Features Expected From AMD Auto IBRS To Pluton CRB TPM2 & Dropping Old Code](https://www.phoronix.com/news/Linux-6.3-Early-Features-Look) |
+| 6.4 | NA | NA | NA |
+| 6.5 | [The first half of the 6.5 merge window](https://lwn.net/Articles/936418) | NA | NA |
+| 6.6 | [The first half of the 6.6 merge window](https://lwn.net/Articles/942954), [The rest of the 6.6 merge window](https://lwn.net/Articles/943245) | NA | NA |
+| 6.7 | NA | NA | NA |
+| 6.8 | [The first half of the 6.8 merge window](https://lwn.net/Articles/957188), [The rest of the 6.8 merge window](https://lwn.net/Articles/958178) | NA | NA |
+| 6.9 | [The first half of the 6.9 merge window](https://lwn.net/Articles/965141), [Kernel prepatch 6.9-rc1](https://lwn.net/Articles/966525), [The rest of the 6.9 merge window](https://lwn.net/Articles/965541) | NA | NA |
+| 6.10 | [The first half of the 6.10 merge window](https://lwn.net/Articles/973687)<br>*-*-*-*-*-*-*-* <br>[The rest of the 6.10 merge window](https://lwn.net/Articles/974869)<br>*-*-*-*-*-*-*-* <br>[Kernel prepatch 6.10-rc2](https://lwn.net/Articles/976498). | NA | [Linux 6.10-rc1 Kernel Released With Many New Features](https://www.phoronix.com/news/Linux-6.10-rc1), [Linux 6.10-rc5 Released With This Kernel Cycle Looking Good So Far](https://www.phoronix.com/news/Linux-6.10-rc5) |
+| 6.11 | [The first half of the 6.11 merge window](https://lwn.net/Articles/982034), [LWN, 2024/07/28, Kernel prepatch 6.11-rc1](https://lwn.net/Articles/983760), [LWN, 2024/07/29, The rest of the 6.11 merge window](https://lwn.net/Articles/982605), [LWN, 2024/08/11, Kernel prepatch 6.11-rc3](https://lwn.net/Articles/985233) | NA | NA |
+| 6.12 | NA | NA | [phoronix, 2024/11/17, Linux 6.12 Released With Real-Time Capabilities, Sched_Ext, More AMD RDNA4 & More](https://www.phoronix.com/news/Linux-6.12-Released) |
+| 6.13 | NA | MA | [phoronix, 2024/12/06, Linux 6.13 Features: AutoFDO+Propeller Optimizations, Many AMD Additions & SDUC + NVMe 2.1 Support](https://www.phoronix.com/review/linux-613-features)<br>*-*-*-*-*-*-*-* <br>[phoronix, 2025/01/16, The Most Exciting Kernel Optimizations, New Hardware Support & Other Linux 6.13 Features](https://www.phoronix.com/news/Linux-6.13-Features-Reminder) |
+| 6.14 | NA | NA | [phoronix, 2025/01/17, Many Exciting Features & New Hardware Support Expected For Linux 6.14](https://www.phoronix.com/news/Linux-6.14-Features-Expected) |
+
+年终盘点
+
+| 年份 | 革新技术 |
+|:---:|:-------:|
+| 2022 | [为了忘却的纪念——2022 Linux 内核十大技术革新功能](https://blog.csdn.net/csdnnews/article/details/128731761) |
+| 2023 | [熠熠生辉 | 2023 年 Linux 内核十大技术革新功能](https://blog.csdn.net/csdnnews/article/details/135493424) |
+| 2024 | [2024年Linux内核十大技术革新盘点｜年终盘点](https://blog.csdn.net/csdnnews/article/details/145127830)<br>*-*-*-*-*-*-*-* <br>[phoronix, 2025/01/01, The Most Popular Linux & Open-Source News Of 2024](https://www.phoronix.com/news/Linux-Open-Source-News-2024) |
+| 2025 | [phoronix, 2025/12/27, Linux Kernel Highlights For 2025: Schedulers, Rust & Torvalds' Commentary](https://www.phoronix.com/news/Linux-Kernel-Highlights-2025) |
+
+# 6 业界会议
+-------
+
+
+2022 年, ChinaSys 学术开源创新平台已经为计算机系统研究人员提供了学术开源索引, 旨在汇聚系统研究相关的优秀开源学术项目, 方便系统研究人员检索和学习. 平台提供的学术开源索引整理了近年来学术会议论文的开源代码链接, 支持基于发表年份、研究领域及关键词的检索, 为系统研究人员提供便利. 截至目前, 平台共收集了 SOSP、OSDI、EuroSys 等 10 个著名学术会议中 652 篇论文的开源代码, 同时提炼出 131 个关键词用于索引. 同时, 学术开源索引还提供了基于合并请求(PR)的自添加功能, 欢迎系统研究人员提交更多的优秀学术开源项目.
+
+参见 [【重磅】ChinaSys 学术开源创新平台开始试运行！](https://zhuanlan.zhihu.com/p/548714548)
+
+[ChinaSys 学术开源创新平台](https://chinasys.org/opensource/program-index.html)
+
+
+其中 SOSP 与 OSDI 是系统领域的圣殿, 无数研究者的梦想.
+
+
+| 会议 | 描述 |
+|:---:|:----:|
+| [LPC](https://www.linuxplumbersconf.org) | 一年一度的 Linux Plumbers Conference(LPC) 是从事 Linux 系统底层(就像房屋的管道 plumbing 类似)细节工作的开发人员中小一部分人的聚会. 它的主题涵盖了从内核之下一直到用户空间的组件, 这些组件是大多数 Linux 用户交互界面和应用程序的基础. |
+| [LSFMM](https://events.linuxfoundation.org/lsfmm) | [Linux Storage, Filesystem, Memory-management and BPF Summit(LSFMM)](https://events.linuxfoundation.org/lsfmm) |
+| [ASPLOS](https://asplos-conference.org) | International Conference on Architectural Support for Programming Languages and Operating Systems Explanation<br>国际编程语言和操作系统架构支持会议 |
+| [SOSP](https://sosp.org) | ACM 操作系统原理大会(SOSP: ACM Symposium on Operating Systems Principles) |
+| [OSDI](https://www.usenix.org/conferences/all) | OSDI 的全称是 USENIX Symposium on Operating Systems Design and Implementation, 但随着时代的发展, 它早已不局限在操作系统领域. |
+| [USENIX](https://www.usenix.org/conferences/all) | NA |
+| [OSPM](http://retis.sssup.it/ospm-summit/) | Power Management and Scheduling in the Linux Kernel (OSPM) Summit |
+
+## 6.1 Linux Plumbers Conference (LPC)
+-------
+
+| 日期 | 会议 |  回放 |
+|:---:|:----:|:----:|
+| 2008    | [LPC-2008](https://blog.linuxplumbersconf.org/2008) | NA |
+| 2009    | [LPC-2009](https://blog.linuxplumbersconf.org/2009/schedule/index.html) | NA |
+| 2010    | [LPC-2010](http://wiki.linuxplumbersconf.org/2010:topics) | NA |
+| 2011    | [LPC-2011](http://wiki.linuxplumbersconf.org/2011:topics) | NA |
+| 2012    | [LPC-2012](http://wiki.linuxplumbersconf.org/2012:topics) | NA |
+| 2013    | [LPC-2013](http://wiki.linuxplumbersconf.org/2013:topics) | NA |
+| 2014    | [LPC-2014](http://wiki.linuxplumbersconf.org/2014:topics) | NA |
+| 2015    | [LPC-2015](http://blog.linuxplumbersconf.org/2015/ocw/events/LPC2015/proposals.html) | [LPC-2015](http://wiki.linuxplumbersconf.org/2015:topics) |
+| 2016    | [LPC-2016](http://blog.linuxplumbersconf.org/2016/ocw/events/LPC2016/proposals.html) | [topics](http://wiki.linuxplumbersconf.org/2016:topics) |
+| 2017/09 | [LPC-2017](http://blog.linuxplumbersconf.org/2017/ocw/events/LPC2017/proposals.html) | NA |
+| 2018/11 | [LPC-2018](https://lpc.events/2018)     | [YouTube channel](http://blog.linuxplumbersconf.org/2018)			|
+| 2019/09 | [LPC-2019](https://lpc.events/event/4)  | [List of all talks/topics](https://lpc.events/event/4/contributions)      |
+| 2020/09 | [LPC-2020](https://lpc.events/event/7)  | [Watch Live (Free)](https://lpc.events/event/7/page/100-watch-live-free)  |
+| 2021/09 | [LPC-2021](https://lpc.events/event/11) | [Watch Live (Free)](https://lpc.events/event/11/page/107-watch-live-free) |
+| 2022/09 | [LPC-2022](https://lpc.events/event/16) | [Watch Live (Free)](https://lpc.events/event/16/page/173-watch-live-free) |
+
+
+## 6.2 ASPLOS
+-------
+
+
+| 日期 | 链接 |
+|:---:|:----:|
+| 2021/04/12 ~ 2021/04/23 | [ASPLOS 2021](https://asplos-conference.org/2021/index.html) | [ASPLOS 2021 论文选读](https://zhuanlan.zhihu.com/p/366849275)
+
+## 6.3 SOSP
+-------
+
+[SOSP](https://sosp.org)
+
+## 6.4 USENIX's OSDI
+-------
+
+OSDI 的全称是 USENIX Symposium on Operating Systems Design and Implementation, 但随着时代的发展, 它早已不局限在操作系统领域.
+
+
+| 日期 | 官网 | 链接 |
+|:---:|:----:|:----:|
+| 2021/04/12 ~ 2021/04/23 | [ASPLOS 2021](https://asplos-conference.org/2021/index.html) | [OSDI2021 论文选读](https://zhuanlan.zhihu.com/p/393380577) |
+
+
+## 6.5 LSFMM
+-------
+
+| 日期 | 链接 | GOOGLE 文档 |
+|:---:|:----:|:-----------:|
+| 2022/05/02 ~ 2022/05/04 | [LSFMM-2022](https://lwn.net/Articles/893733) | NA |
+| NA | []() | [LSFMMBPF 2023 Schedule](https://docs.google.com/spreadsheets/d/1tIDYHgLhhcetoXtgyvcoM6YZWWHcVLdNYipBq2dH-_k/edit#gid=1622936535) |
+
+
+## 6.6 OSPM(Power Management and Scheduling in the Linux Kernel)
+-------
+
+| 日期 | 官网 | 链接 | GOOGLE 文档 |
+|:---:|:----:|:---:|:-----------:|
+| 2023/04/17-2023/04/19 | [5th OSPM Summit](https://retis.santannapisa.it/luca/ospm-summit/2023) | [LWN 汇总](https://lwn.net/Archives/ConferenceIndex/#OS-Directed_Power-Management_Summit-2023)<br>[LWN-Reports from OSPM 2023, part 1](https://lwn.net/Articles/934142)<br>[LWN-Reports from OSPM 2023, part 2](https://lwn.net/Articles/934459)<br>[LWN-Reports from OSPM 2023, part 3](https://lwn.net/Articles/935180) | [OSPM23 - topics - Google 云端硬盘](https://docs.google.com/spreadsheets/u/0/d/10AJFQporrCPH9Gn6-MaRotdfO4Hm4LG6dVAoDrQdj5A/htmlview?pli=1#gid=1185197977) |
+| 2024/05/30-2024/05/21 | [6th OSPM Summit](https://retis.sssup.it/ospm-summit/2024) | [LWN, 2024/07/11, Reports from OSPM 2024, part 1](https://lwn.net/Articles/981371)<br>[LORE](https://lore.kernel.org/all/ZbJHfiWnujLz2Pfm@localhost.localdomain) | [OSPM24 - topics - Google 云端硬盘](https://docs.google.com/spreadsheets/d/13lOYsbNWhQU7pNbyHI97fC7GT0Eu8aMbU9ATvPJfV0A/edit?usp=sharing) |
+
+## 6.7 [KernelPodCast](https://kernelpodcast.org)
+-------
+
+[S2E1 – 2023/01/21](https://kernelpodcast.org/2023/01/21/s2e1-2023-01-21)
+
+
+[Power Management and Scheduling in the Linux Kernel V edition (OSPM-summit 2023)](https://lore.kernel.org/all/Y8lFkbJ6nluNdVYO@localhost.localdomain/)
+
+
+## 6.8 Linaro Forum for Arm Linux kernel
+-------
+
+
+[The first Linaro Forum for Arm Linux kernel topics](https://lwn.net/Articles/969031)
+
+
+# 7 统计信息
+-------
+
+## 7.1 版本
+-------
+
+| 网站 | 描述 |
+|:---:|:---:|
+| [LWN](https://lwn.net/Kernel/Index/#Releases) | LWN 每个版本都会在合并窗口发布 Merge Window, 在版本发布之后还会发布 [development statistics](https://lwn.net/Articles/867540) 信息 |
+
+
+## 7.2 测试
+-------
+
+
+漏洞扫描器 Coverity Scan : https://scan.coverity.com/projects/linux

@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:www.samba.org)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "WebFetch(domain:wiki.samba.org)",
+      "WebFetch(domain:www.ubiqx.org)",
+      "Bash(mkdir -p /home/skynit/Uni/ming/os/06-samba/{01-SMB协议原理,02-Samba部署与配置,03-SMB协议实现})",
+      "WebFetch(domain:www.fnnas.com)",
+      "WebFetch(domain:help.fnnas.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(ls /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/ 2>/dev/null | head -40)",
+      "Bash(find /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/src -type f -name \"*.c\" -o -name \"*.h\" | head -50)",
+      "Bash(find /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/ -type f \\\\\\( -name \"*iwl*\" -o -name \"*wifi*\" -o -name \"*core*\" -o -name \"*trans*\" -o -name \"*pcie*\" \\\\\\) ! -path \"*/iwlwifi-linuxptp/*\" | head -30)",
+      "Bash(find /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/ -type d | head -30)",
+      "Bash(find /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers -type f -name \"*.c\" | head -30)",
+      "Bash(ls /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/pcie/ 2>/dev/null)",
+      "Bash(ls /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/pcie/gen3/)",
+      "Bash(grep -rn 'ioremap\\\\|pci_iomap\\\\|devm_ioremap\\\\|BAR\\\\|mmio' /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/ --include=\"*.c\" --include=\"*.h\" | head -25)",
+      "Read(//home/skynit/Downloads/wifi/wifi linux core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/**)",
+      "Read(//home/skynit/Downloads/wifi/wifi linux core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/pcie/**)",
+      "Bash(grep -n 'ieee80211_ops\\\\|\\\\.tx\\\\s*=\\\\|sta_set_key\\\\|iwl_mvm_mac_tx\\\\|iwl_mld_mac_tx' /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c | head -20)",
+      "Bash(grep -n 'iwl_mld_mac80211_tx\\\\|iwl_mld_tx_skb' /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/mld/*.c | head -10)",
+      "Read(//home/skynit/Downloads/wifi/wifi linux core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/mld/**)",
+      "Bash(grep -n 'iwl_mld_tx_mpdu\\\\b\\\\|iwl_mld_fill_tx_cmd\\\\|TX_CMD' /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/mld/tx.c | head -20)",
+      "Bash(grep -n 'iwl_trans_write32\\\\|iwl_trans_write8' /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/pcie/gen3/trans.c | head -10)",
+      "Bash(grep -rn 'iwl_trans_write8\\\\|iwl_trans_write32\\\\|writel\\\\|writeb\\\\|__raw_writel' /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/pcie/gen3/trans.c | head -10)",
+      "Bash(grep -rn '\\\\.write8\\\\s*=\\\\|\\\\.write32\\\\s*=\\\\|\\\\.read32\\\\s*=' /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/pcie/ | head -10)",
+      "Bash(grep -rn 'read8\\\\|read32\\\\|write8\\\\|write32\\\\|writel\\\\|readl' /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/iwl-trans.h | head -15)",
+      "Bash(grep -n 'iwl_trans_write8\\\\|iwl_trans_write32\\\\|iwl_trans_read32' /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/iwl-trans.c | head -15)",
+      "Bash(grep -rn 'iwl_trans_pcie_write32\\\\b\\\\|iwl_trans_pcie_gen3_write32\\\\b' /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/pcie/gen3/trans.c /home/skynit/Downloads/wifi/wifi\\\\ linux\\\\ core101/jenkins-Core_manual_signed_core101-72-29682-src/src/iwlwifi-stack-dev/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c 2>/dev/null | head -10)"
+    ]
+  }
+}

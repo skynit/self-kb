@@ -1,0 +1,10 @@
+# Device-local Obsidian state
+.obsidian/workspace*.json
+.trash/
+
+# Claudian session cache; durable knowledge belongs in vault notes
+.claudian/claudian-settings.json
+.claudian/sessions/
+
+# Independent external source repository
+90-原始资料/03-外部仓库/LDD-LinuxDeviceDrivers/
