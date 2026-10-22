@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "type": "file",
+      "ctime": 1792573296064,
+      "path": "21-ai/book/01-AI-Agent入门.md",
+      "subpath": "#^96ef4f",
+      "title": "模型控制循环的基本流程如下伪代码所示：\n\n```python\nobservation = Environment.observe()\ntrajectory = [observation]\nwhile true:\n\tactions = Model(Harness.build_context(trajectory))\n\tif len(actions) == 0:\n\t\tbreak\n\tallowed_actions = Harness.constrain(actions)\n\tobservation = Environment.apply(allowed_actions)\n\tif not Harness.verify(Environment):\n\t\tobservation = Harness.correct(Environment)\n\ttrajectory.append(allowed_actions, observation)"
+    },
+    {
+      "type": "file",
+      "ctime": 1792573616155,
+      "path": "21-ai/book/01-AI-Agent入门.md",
+      "subpath": "#^4ab206",
+      "title": "### 构建有效 Agent 的核心原则\n\n根据 Anthropic 的经验，成功的 Agent 系统遵循三个核心原则[^ch1-anthropic-building-effective-agents]。\n\n**保持简单**。从最简单的方案开始，只在确实必要时才增加复杂度。直接的 API 调用优于复杂的框架，清晰的代码优于聪明的抽象。因为每多一层抽象都会成为以后调试时新的盲区。\n\n**保持透明**。明确显示 Agent 的规划步骤、执行日志和决策轨迹——这不只是为了调试方便，也是让用户建立信任的前提。因为黑箱里的错误一旦发生，外部观察者既无法定位也无法纠正。\n\n**设计好工具接口（ACI，Agent-Computer Interface）**。ACI 强调的是从 Agent 视角设计接口（让 Agent 容易理解和使用），而非传统 API 从程序员视角设计接口。工具的命名和参数要直观，容易误用的地方要从设计上让错误无法发生——比如 SIM 卡的缺角让卡片只能从一个方向插进卡槽，避免了用户插反的错误；微波炉门没关好就绝不加热，避免了用户开门加热的危险行为。这种“用设计消除错误”的思路，在制造业里有一个专门的术语，叫**防呆**（Poka-yoke），源自丰田生产体系。设计不好的工具会让再强的模型也频繁出错——因为模型与工具之间唯一的沟通通道就是接口本身，模糊的接口会被模型放大成系统性的错误。"
+    },
+    {
+      "type": "file",
+      "ctime": 1792589292887,
+      "path": "21-ai/book/02-上下文工程.md",
+      "subpath": "#^4d8b68",
+      "title": "**实时代码上下文**：当前代码库的目录结构、各模块的职责划分、核心数据结构的定义、团队的代码规范。没有这些，Agent 写出的代码可能语法正确但风格与项目格格不入，甚至引入架构层面的冲突。\n- **流程规范**：Git 分支策略、代码提交规范、代码审查流程、CI/CD 管线的要求。缺少这些，Agent 可能直接往主分支提交未经测试的代码。\n- **环境信息**：开发环境的配置、测试数据库的连接地址、测试环境的部署方式、API 密钥的管理方式。没有这些，Agent 在本地能跑通的修复，到了测试环境可能立刻崩溃。"
+    },
+    {
+      "type": "file",
+      "ctime": 1792591277917,
+      "path": "21-ai/book/02-上下文工程.md",
+      "subpath": "#^2acf82",
+      "title": "用代码实现 Agent 的核心循环\n\n理解了 JSON 结构之后，让我们用 Python 代码把上面的交互过程串起来。以下是一个最简的 Agent 实现——核心就是一个 while 循环。本章刻意保留这段完整 API 循环作为协议参照；其他章节则用 Python 风格的骨架代码说明机制。\n\n```python\nfrom openai import OpenAI\n\nclient = OpenAI()\n\n# ── Tool definitions ──\ntools = [\n    {\n        \"type\": \"function\",\n        \"function\": {\n            \"name\": \"get_current_time\",\n            \"description\": \"Get the current date and time in a specific timezone\",\n            \"parameters\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"timezone\": {\"type\": \"string\", \"description\": \"Timezone name, e.g. America/Vancouver\"}\n                },\n            },\n        },\n    },\n    {\n        \"type\": \"function\",\n        \"function\": {\n            \"name\": \"get_weather\",\n            \"description\": \"Get the current weather for a specific city\",\n            \"parameters\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"city\": {\"type\": \"string\", \"description\": \"City name\"},\n                    \"unit\": {\"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\"]},\n                },\n            },\n        },\n    },\n]\n\n# ── Tool execution function (stub with canned results; a real implementation\n#    must parse the JSON `arguments` and call actual APIs) ──\ndef execute_tool(name, arguments):\n    if name == \"get_current_time\":\n        return '{\"datetime\": \"2025-09-13T05:18:47\", \"day_of_week\": \"Saturday\"}'\n    elif name == \"get_weather\":\n        return '{\"temperature\": 13.2, \"unit\": \"celsius\", \"conditions\": \"clear\", \"humidity\": 93}'\n\n# ── Initial message list ──\nmessages = [\n    {\"role\": \"system\", \"content\": \"You are a helpful assistant. Use tools to get real-time information when needed.\"},\n    {\"role\": \"user\", \"content\": \"What's the current time and weather in Vancouver?\"},\n]\n\n# ── Agent core loop ──\n# Production code needs a max_iterations cap here: as discussed later in\n# this chapter, Agents can get stuck repeating the same tool calls forever\nwhile True:\n    response = client.chat.completions.create(\n        model=\"Qwen3-0.6B\", messages=messages, tools=tools\n    )\n    assistant_message = response.choices[0].message\n\n    # Append model's response to message list (whether text or tool calls)\n    messages.append(assistant_message)\n\n    # If no tool calls requested, the model has produced its final response\n    if not assistant_message.tool_calls:\n        print(assistant_message.content)\n        break\n\n    # Execute each tool requested by the model, append results to message list\n    for tool_call in assistant_message.tool_calls:\n        result = execute_tool(tool_call.function.name, tool_call.function.arguments)\n        messages.append({\n            \"role\": \"tool\",\n            \"tool_call_id\": tool_call.id,\n            \"content\": result,\n        })\n    # Return to top of loop, call model again with updated message list"
+    },
+    {
+      "type": "file",
+      "ctime": 1792592892771,
+      "path": "21-ai/book/02-上下文工程.md",
+      "subpath": "#^77dc84",
+      "title": "**系统提示词和工具定义一旦确定就不要改。** 任何改动，哪怕多一个空格，都可能改变 token 序列，使首个不同 token 及其后的缓存无法复用；改动越靠前，延迟和成本影响通常越大（具体幅度视模型与配置而定）。\n> 2. **动态信息永远追加到末尾**——时间戳、用户状态等变化的内容，作为新消息追加到对话末尾，而不是修改已有的系统提示词。\n> 3. **使用标准 API 格式，不要自行拼接消息**：结构化消息会被 Chat Template 翻译成模型训练时见过的固定 token 序列；自行用字符串拼成 `\"USER: ... ASSISTANT: ...\"` 的根本问题是偏离了这种训练格式，会削弱模型的多步思考能力。至于缓存，它只认 token 字节序列，只要拼出的前缀字节级稳定，照样能命中；但若拼接方式不稳定（如每次向前缀注入动态内容），缓存也会随之失效。\n>"
+    },
+    {
+      "type": "file",
+      "ctime": 1792594999323,
+      "path": "21-ai/book/02-上下文工程.md",
+      "subpath": "#^f38f6c",
+      "title": "注意力热力图揭示了几个关键模式：\n>\n> 1. **注意力储存池**：序列的第一个 token 往往吸收了异常高的注意力权重，有时超过总注意力的 70%。模型将这个位置用作“注意力储存池”（Attention Sink），存放那些不需要分配到其他具体 token 上的多余注意力权重。换句话说，模型学会了把那些“无处安放”的剩余权重集中倾倒到第一个 token 上，就像一个公共的回收站——这是一种系统性的现象，并非模型缺陷。\n>\n>    背后的数学原因是：注意力机制有一个硬性约束——所有注意力权重加起来必须恰好等于 100%（这由一个叫 softmax 的数学函数保证），模型无法表达“不关注任何东西”。即使当前词与前面所有词都不太相关，这些权重也必须分配到某个地方。于是模型必须为这部分“剩余权重”找一个稳定的容器，序列开头的固定位置便成了最自然的选择。这是 softmax 在处理大量 token 时所表现出的数学特性的必然结果。\n> 2. **思考的三角形模式**：模型思维链（`<think>` 标签内）展现出三角形状的自注意力模式——生成新的思考内容时频繁“回看”之前的思考内容和工具定义。\n> 3. **输出的三角形模式**：思考结束后的输出过程展现出另一个三角形，模型用思考过程作为提示来输出回答。\n> 4. **位置偏好**（Position Bias）[^lost-in-the-middle]：模型对上下文开头和结尾的信息分配了更高的注意力，中间部分则更容易被忽视。因此，在设计上下文时，把最关键的信息放在开头或结尾是一项重要的实践原则。"
+    }
+  ]
+}

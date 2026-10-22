@@ -15,5 +15,13 @@
       ],
       "key": "ArrowRight"
     }
+  ],
+  "bookmarks:bookmark-current-section": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "K"
+    }
   ]
 }

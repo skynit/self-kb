@@ -1,8 +1,167 @@
 ---
 date: 2026-07-29
-tags: [iwlwifi, iwlmld, wifi7, be213, firmware, kernel, networkmanager, hotspot]
+tags: [iwlwifi, iwlmld, wifi7, be213, firmware, kernel, networkmanager, hotspot, wwan, 5g, quectel, apn, modemmanager]
 category: linux-driver
 ---
+
+# Intel BE213 Wi-Fi 7 驱动安装与测试手册
+
+## 离线工具包快速使用
+
+> 适用范围：Ubuntu 26.04 和 Intel Wi-Fi 7 BE213（PCI ID `8086:4d40`）。工具包位于 `/home/skynit/workspace/driver/be213-offline-installer`，运行时不会调用 `apt`、`git`、`curl` 或 `wget`。
+
+### 默认路径：源码 backport 驱动和固件
+
+先进入离线工具包目录：
+
+```bash
+cd /home/skynit/workspace/driver/be213-offline-installer
+```
+
+校验离线包：
+
+```bash
+sha256sum --check --strict MANIFEST.sha256
+```
+
+检查硬件、当前驱动和安装条件：
+
+```bash
+sudo ./01-backport-driver-install.sh check
+```
+
+为当前内核编译并安装固定提交的 `backport-iwlwifi`，同时安装 `c102/c103/c106` 固件：
+
+```bash
+sudo ./01-backport-driver-install.sh install
+```
+
+安装完成后重启：
+
+```bash
+sudo reboot
+```
+
+### 重启后验收
+
+重新进入工具包目录：
+
+```bash
+cd /home/skynit/workspace/driver/be213-offline-installer
+```
+
+运行驱动、固件和无线接口验收：
+
+```bash
+sudo ./01-backport-driver-install.sh verify
+```
+
+`verify` 的关键判据：
+
+1. 安装后已经重启，运行中模块与磁盘模块一致。
+2. `modinfo -F filename iwlwifi` 指向源码 `updates/` 路径。
+3. 日志出现 `loaded firmware version` 和 `base HW address`。
+4. `iw dev` 能看到无线接口。
+5. 日志中没有新的 Fatal、SYSASSERT、固件重启或初始化失败。
+
+驱动先尝试更高 API，找不到后成功回退到 `c106` 不一定是故障。不能将不同 API 或 RF 前缀的固件改名冒充。
+
+### 开启和停止 5 GHz AP
+
+启动 AP、DHCP，并在检测到默认有线上联时配置 NAT：
+
+```bash
+sudo ./02-enable-ap.sh start
+```
+
+停止 AP 并撤销本次运行状态：
+
+```bash
+sudo ./02-enable-ap.sh stop
+```
+
+脚本使用包内固定配置 `resources/hostapd/hostapd_5G_80M_11be.conf`，在第一个无线 PHY 上创建 `uap0`，使用中国监管域下的信道 149 和 80 MHz 带宽。固定 SSID 和测试凭据在配置文件中；本笔记不记录明文密码。该配置只应用于隔离测试环境。
+
+`start` 会先确认 PHY 支持 AP 模式，并拒绝 `disabled`、`no IR` 或 DFS 信道。WPA 握手只能证明二层连接，还应检查 DHCP 租约、UDP 67、NAT 和真实流量。
+
+### 备选路径：Ubuntu DKMS 驱动和固件
+
+`03-dkms-kernel-patch.sh` 只在不采用脚本 01 时使用。先检查：
+
+```bash
+sudo ./03-dkms-kernel-patch.sh check
+```
+
+安装固定版本的 Ubuntu `backport-iwlwifi-dkms` 和同一组固件：
+
+```bash
+sudo ./03-dkms-kernel-patch.sh install
+```
+
+重启：
+
+```bash
+sudo reboot
+```
+
+重启后验收：
+
+```bash
+sudo ./03-dkms-kernel-patch.sh verify
+```
+
+脚本 01 和脚本 03 会安装同名无线模块，必须二选一，不能混装。切换路径前，必须先用原路径的 `uninstall` 完整回滚并重启确认。
+
+### 卸载与回滚
+
+卸载源码 backport 路径：
+
+```bash
+sudo ./02-enable-ap.sh stop
+```
+
+```bash
+sudo ./01-backport-driver-install.sh uninstall
+```
+
+```bash
+sudo reboot
+```
+
+卸载 DKMS 备选路径：
+
+```bash
+sudo ./02-enable-ap.sh stop
+```
+
+```bash
+sudo ./03-dkms-kernel-patch.sh uninstall
+```
+
+```bash
+sudo reboot
+```
+
+### 安装选项
+
+| 选项 | 适用脚本 | 作用 |
+| --- | --- | --- |
+| `--jobs N` | 01 | 指定源码编译并行数，`N` 必须是正整数 |
+| `--dry-run` | 01、03 | 显示将执行的安装操作，不实际安装 |
+| `--yes` | 01、03 | 跳过安装或卸载前的交互确认 |
+| `--allow-unsigned` | 01、03 | 在 Secure Boot 已开启时明确接受未签名模块风险 |
+
+`--allow-unsigned` 不会绕过内核签名校验。如果 Secure Boot 仍拒绝模块，需要完成模块签名和 MOK 注册，或在明确的测试环境中关闭 Secure Boot。
+
+### 运行边界与依赖
+
+- 源码路径需要 `gcc`、`make`、`bc`、`bison`、`flex`、`pkg-config`、`perl`、`tar`、`xz`、`linux-headers-$(uname -r)` 和 `sha256sum`。
+- DKMS 路径需要 `dkms >= 3.0.11`、`dpkg`、`gcc`、`make`、`libc6-dev` 或 `libc-dev`、`linux-headers-$(uname -r)` 和 `sha256sum`。
+- 验收需要 `pciutils`、`iw` 和 `rfkill`。
+- AP 构建和运行需要 `gcc`、`make`、`pkgconf`、`libnl-3-dev`、`libnl-genl-3-dev`、`libssl-dev`、`iw`、`iproute2`、`dnsmasq`、`systemd`，启用 NAT 时还需要 `nftables`。
+- 脚本不会自动重启，也不会热卸载正在使用的无线模块。
+- 脚本不处理蓝牙、不配置 6 GHz AP，也不绕过 `no IR`、DFS 或平台监管限制。
+- 源码模块只针对安装时的当前内核编译；升级内核后需要为新内核重新执行安装。
 
 ## 0A. 源码编译路径依赖
 
@@ -804,13 +963,13 @@ AP/VLAN
 
 必须分层判断失败位置：
 
-| 阶段 | 成功判据 | 失败表现 |
-| --- | --- | --- |
-| 发现 | 客户端扫描到 SSID | 信道、监管域、信标或信号问题 |
-| 认证/关联 | `AP-STA-CONNECTED` | 密码、安全能力或客户端策略问题 |
-| WPA 握手 | `EAPOL-4WAY-HS-COMPLETED` | PSK、PMF 或 WPA 参数问题 |
-| DHCP | `DHCPACK` | AP 无 IPv4 地址、DHCP 未启动或 UDP 67 未监听 |
-| 外网 | 客户端可访问上联网络 | forwarding、NAT、DNS 或上联网口问题 |
+| 阶段     | 成功判据                      | 失败表现                              |
+| ------ | ------------------------- | --------------------------------- |
+| 发现     | 客户端扫描到 SSID               | 信道、监管域、信标或信号问题                    |
+| 认证/关联  | `AP-STA-CONNECTED`        | 密码、安全能力或客户端策略问题                   |
+| WPA 握手 | `EAPOL-4WAY-HS-COMPLETED` | PSK、PMF 或 WPA 参数问题                |
+| DHCP   | `DHCPACK`                 | AP 无 IPv4 地址、DHCP 未启动或 UDP 67 未监听 |
+| 外网     | 客户端可访问上联网络                | forwarding、NAT、DNS 或上联网口问题        |
 
 `hostapd` 的 `num_sta` 和 `station dump` 能证明二层连接，但不能证明 DHCP 或外网正常。手机卡在“正在获取 IP”时，先检查：
 
@@ -961,6 +1120,96 @@ iw phy phy0 info | grep -i -A2 -B2 antenna
 
 信道 36 的 80 MHz 带宽覆盖 36/40/44/48。其中任一子信道高忙时都可能降低吞吐并增加重试，但同频干扰通常不能单独解释近距离仍然很低的 RSSI。在不变更监管限制的前提下，先用近距离、无遮挡、20 MHz 做基线，比继续提高发射功率更有诊断价值。
 
+### 8.7 上联走 5G WWAN 时：AP 客户端能连接但不能上网
+
+2026-09-20 在 CWNAS（`192.168.100.29`，内核 `7.0.0-14-generic`，固件 `106.c88d33af.0 bz-b0-wh-b0-c106`）实测。该机的 AP 由 `wlo1`（BE213，`8086:4d40`）提供，上联设计为 Quectel RM520N-CN（USB `2c7c:0801`）5G 模块，即 `cdc-wdm2` / `wwp0s20f0u1u2i8`。
+
+#### 症状
+
+- 客户端能关联 `CW口袋NAS`，WPA 握手、DHCP 全部正常，能打开 NAS 自身的 Web 和 alist 页面（本地服务），但访问外网全部超时。
+- 同一时刻 NAS 自己通过有线 `enp1s0` 上网完全正常。
+- 这种"热点基本可用、只是出不了公网"的观感很容易被误判成 AP 或 NAT 配置问题。
+
+#### 第一手判据：WWAN 接口有没有地址
+
+```bash
+ip -br -4 addr
+ip route
+```
+
+正常时 `wwp0s20f0u1u2i8` 应带运营商地址并出现在默认路由里。本例故障时它一直是 `DOWN`、无地址，`ip route` 里只有 `default via 192.168.100.254 dev enp1s0`。
+
+#### 分层定位顺序
+
+| 步骤 | 命令 | 本例结论 |
+| --- | --- | --- |
+| 1. NAS 自身能否上网 | `ping -c2 8.8.8.8`；`curl -sS -o /dev/null -w '%{http_code}' http://www.baidu.com` | 通过（走有线），排除整体断网 |
+| 2. 二层与 DHCP | `iw dev wlo1 station dump`；`cat /var/lib/misc/dnsmasq.leases` | 通过，有在线客户端且已拿到租约 |
+| 3. 转发与 NAT 规则 | `nft list ruleset`；`iptables -t nat -S` | 规则齐全且有命中计数，排除防火墙 |
+| 4. 默认路由出口 | `ip route`；`ip route get 223.5.5.5` | 只有 `enp1s0`，没有 WWAN |
+| 5. 上联设备状态 | `nmcli -t -f DEVICE,TYPE,STATE,CONNECTION dev`；`mmcli -m 0` | `cdc-wdm2:gsm:disconnected`；模块已注册 5G |
+| 6. 找明确失败原因 | `journalctl -u NetworkManager --no-pager -n 400 -g apn`（也可搜 `gsm`、`modem`、`cdc-wdm`） | 直接给出 `reason 'gsm-apn-failed'` |
+
+两个容易踩的判据：
+
+- NetworkManager 的 shared 模式给 AP 配 `10.42.0.1/24`，`10.42.0.0/24` 的 masquerade 规则**与出口网卡无关**（`ip saddr 10.42.0.0/24 ip daddr != 10.42.0.0/24 masquerade`），`nm-sh-fw-wlo1` 链也是按网段放行。所以"热点不能上网"通常不是热点这一侧的配置问题，而是默认路由指向的那个出口根本没通。
+- `nft list ruleset` 里的 counter 有数值，只能证明链被走到过，不能证明流量真的出去了。本例中计数几乎全部来自客户端访问 NAS 本地服务，与公网无关。
+
+#### 本例根因
+
+模块本身完全正常，`mmcli -m 0` 显示 `state: registered`、`access tech: 5gnr`、`operator name: 中国电信`、信号 64%、SIM 已激活。失败发生在 NetworkManager 拨号阶段：
+
+```text
+modem-broadband[cdc-wdm2]: failed to connect 'mobile-data':
+  APN not found: Error opening service provider database:
+  Error opening file /usr/share/mobile-broadband-provider-info/serviceproviders.xml: No such file or directory
+device (cdc-wdm2): state change: prepare -> failed (reason 'gsm-apn-failed')
+```
+
+镜像被裁剪过，没装 `mobile-broadband-provider-info`；而 `mobile-data` 这个 gsm 连接的 `gsm.apn` 为空、`gsm.auto-config=yes`，NM 只能去查运营商数据库，文件不存在就直接放弃。`gsm-apn-failed` 是这类问题的明确指纹。
+
+#### 修复
+
+让 auto-config 能查到 APN：
+
+```bash
+apt install mobile-broadband-provider-info
+nmcli con up mobile-data
+```
+
+或者不装包，直接写死 APN（中国电信为 `ctnet`，数据库中的备选为 `ctlte`、`ctwap`）：
+
+```bash
+nmcli con mod mobile-data gsm.apn ctnet
+nmcli con mod mobile-data gsm.auto-config no
+nmcli con up mobile-data
+```
+
+验收：
+
+```bash
+ip -br -4 addr show wwp0s20f0u1u2i8
+ip route get 223.5.5.5
+ping -I wwp0s20f0u1u2i8 -c3 8.8.8.8
+```
+
+本例修复后 `wwp0s20f0u1u2i8` 得到 `10.6.78.107/29`，`ip route get 223.5.5.5` 走 `wwp0s20f0u1u2i8`，日志出现 `policy: set 'mobile-data' (wwp0s20f0u1u2i8) as default for IPv4 routing and DNS`。`mobile-data` 为 `autoconnect=yes`，装包后重启会自动拨号，热点侧不需要任何改动。
+
+#### 路由优先级副作用
+
+`mobile-data` 的 `ipv4.route-metric` 默认 `50`，低于有线 DHCP 的 `100`。5G 一旦拨通就会**抢走默认路由**，热点和 NAS 自身都改走 5G 流量，有线变成备份。需要有线优先时：
+
+```bash
+nmcli con mod mobile-data ipv4.route-metric 200
+```
+
+#### 可复用结论
+
+- 裁剪过的发行版镜像容易缺 `mobile-broadband-provider-info`，凡是让 NM"自动选 APN"的 4G/5G 方案都会因此失败。自建镜像应把它列进基础包；否则要么补包，要么显式写死 APN。
+- 排查"热点能连不能上网"不要一上手就查 NAT 规则。先问一句：**这台机器的默认路由现在指向哪张网卡，那张网卡本身通不通。**
+- `state: registered` 只说明模块注册上了网络，不等于已经建立数据承载（bearer）。要看 `packet service state`，更要看 WWAN 接口有没有拿到 IP。
+- `mobile-broadband-provider-info` 的 `serviceproviders.xml` 里 MCC/MNC 是分开的 `<mcc>` / `<mnc>` 字段，用 `grep -c 46011` 验证会得到 0，要用 `grep -A3 -B8 '<mnc>11</mnc>'` 或直接按运营商名 `China Telecom` 查找。
+
 ## 9. Bluetooth
 
 Bluetooth 的内核驱动由 Linux 提供：
@@ -1033,22 +1282,25 @@ Key was rejected by service
 
 ## 12. 常见问题
 
-| 现象 | 原因或处理 |
-| --- | --- |
-| `no suitable firmware found`，驱动最高 `c101`，目录只有 `c102/c103/c106` | 内核驱动与公开固件版本错配；使用 Ubuntu 官方签名 backport、DKMS backport 或支持 `c102` 的 OEM 内核 |
-| 找到 `fm-c0-c101`，但驱动请求 `wh-b0-c101` | RF 配置不匹配，不能改名使用；`wh-b0` 公开固件从 `c102` 开始 |
-| `lspci` 可见但 `iw dev` 为空 | 固件可能在注册 phy 前失败，查看 Fatal/SYSASSERT |
-| `loaded firmware` 后仍没有接口 | 文件已读入不等于初始化完成，继续找 `base HW address` |
-| c108/c107 报 `-2` | 文件不存在；后续加载 c106 成功则属于正常回退 |
-| `cannot stat iwlwifi-bz...` | 文件在 `linux-firmware/intel/iwlwifi/` |
-| `pkg-config not found` | 安装 `pkgconf` |
-| `pcap.h not found` | 安装 `libpcap-dev` |
-| `dmesg` 不允许操作 | 使用 `sudo journalctl -k -b --no-pager` |
-| `nmcli` 报 not authorized | SSH Polkit 权限不足，使用 `sudo nmcli` |
-| terminal is not fully functional | 使用 `--colors no ... | cat` |
-| `wlo1` 显示 DOWN 但 flags 有 UP | 接口已启用但尚未关联 AP |
-| 2.4 GHz AP 可连接但不能上网 | 检查 DHCP、NAT 和 `net.ipv4.ip_forward` |
-| 5 GHz AP supplicant timeout | 检查 `no IR`、DFS 和 self-managed regulatory |
+| 现象                                                                                    | 原因或处理                                                                   |      |
+| ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ---- |
+| `no suitable firmware found`，驱动最高 `c101`，目录只有 `c102/c103/c106`                        | 内核驱动与公开固件版本错配；使用 Ubuntu 官方签名 backport、DKMS backport 或支持 `c102` 的 OEM 内核 |      |
+| 找到 `fm-c0-c101`，但驱动请求 `wh-b0-c101`                                                    | RF 配置不匹配，不能改名使用；`wh-b0` 公开固件从 `c102` 开始                                 |      |
+| `lspci` 可见但 `iw dev` 为空                                                               | 固件可能在注册 phy 前失败，查看 Fatal/SYSASSERT                                      |      |
+| `loaded firmware` 后仍没有接口                                                              | 文件已读入不等于初始化完成，继续找 `base HW address`                                     |      |
+| c108/c107 报 `-2`                                                                      | 文件不存在；后续加载 c106 成功则属于正常回退                                               |      |
+| `cannot stat iwlwifi-bz...`                                                           | 文件在 `linux-firmware/intel/iwlwifi/`                                     |      |
+| `pkg-config not found`                                                                | 安装 `pkgconf`                                                            |      |
+| `pcap.h not found`                                                                    | 安装 `libpcap-dev`                                                        |      |
+| `dmesg` 不允许操作                                                                         | 使用 `sudo journalctl -k -b --no-pager`                                   |      |
+| `nmcli` 报 not authorized                                                              | SSH Polkit 权限不足，使用 `sudo nmcli`                                         |      |
+| terminal is not fully functional                                                      | 使用 `--colors no ...                                                     | cat` |
+| `wlo1` 显示 DOWN 但 flags 有 UP                                                           | 接口已启用但尚未关联 AP                                                           |      |
+| 2.4 GHz AP 可连接但不能上网                                                                   | 检查 DHCP、NAT 和 `net.ipv4.ip_forward`                                     |      |
+| 热点客户端能连接、能拿 DHCP，但打不开外网                                                               | 按 8.2 分层判断；上联是 4G/5G 时先看 `wwp*` 有没有 IP 和默认路由（8.7）                       |      |
+| 日志出现 `reason 'gsm-apn-failed'`、`APN not found ... serviceproviders.xml: No such file` | 缺少 `mobile-broadband-provider-info`，见 8.7                               |      |
+| `mmcli` 显示 `registered` / `5gnr`，但 WWAN 接口仍无地址                                        | 注册不等于建立数据承载；检查 APN 和数据拨号，见 8.7                                          |      |
+| 5 GHz AP supplicant timeout                                                           | 检查 `no IR`、DFS 和 self-managed regulatory                                |      |
 
 ## 13. 验收清单
 
@@ -1066,6 +1318,7 @@ Key was rejected by service
 - [ ] 6 GHz STA 在法规允许条件下测试。
 - [ ] 2.4 GHz AP 认证、DHCP、DNS、NAT 通过。
 - [ ] 5/6 GHz AP 按实际监管能力测试。
+- [ ] 上联为 4G/5G 时，`wwp*` 接口有运营商地址，默认路由可达外网。
 - [ ] Bluetooth `hci0` 正常。
 - [ ] 重启后驱动和网络仍正常。
 
